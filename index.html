@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="./index.js" defer></script>
+
+    <link rel="stylesheet" href="./node_modules/normalize.css/normalize.css">
+    <link rel="stylesheet" href="./style.css">
+
+    <title>Hangman</title>
+</head>
+
+<body>
+    <h1>Hangman</h1>
+    <label for="letter-input">Your Guess:</label>
+    <input type="text" name="letter-input" id="letter-input" maxlength="1" onkeydown="return /[a-z]/i.test(event.key)" placeholder="A"><br />
+    <button id="guess-button">Loading...</button>
+    <div id="lives">Lives: 6</div>
+    <div id="idiom"></div>
+</body>
+
+</html>
