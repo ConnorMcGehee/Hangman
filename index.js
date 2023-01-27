@@ -58,38 +58,47 @@ const newPhrase = () => {
 
 guessButton.addEventListener("click", (e) => {
     let guess = inputElement.value.toUpperCase();
-    guessArray.push(guess);
-    if (currentIdiom.includes(guess)) {
-        correctArray.push(guess);
-        idiomElement.innerText = "";
-        let idiomCharArray = currentIdiom.split("");
-        let idiomText = "";
-        for (char of idiomCharArray) {
-            if (guessArray.includes(char)) {
-                idiomText += `<span class="space">${char}&nbsp;</span>`
+    if (!guessArray.includes(guess)) {
+        guessArray.push(guess);
+        if (currentIdiom.includes(guess)) {
+            idiomElement.innerText = "";
+            let idiomCharArray = currentIdiom.split("");
+            let idiomText = "";
+            for (char of idiomCharArray) {
+                if (guess === char) {
+                    correctArray.push(guess);
+                }
+                if (guessArray.includes(char)) {
+                    idiomText += `<span class="space">${char}&nbsp;</span>`
+                }
+                else if (/\w/.test(char)) {
+                    idiomText += `<span class="underline">&nbsp;</span><span class="space">&nbsp;</span>`;
+                }
+                else if (char === " ") {
+                    idiomText += `<span class="space"><br /></span>`;
+                }
+                else {
+                    idiomText += char + "&nbsp;";
+                }
             }
-            else if (/\w/.test(char)) {
-                idiomText += `<span class="underline">&nbsp;</span><span class="space">&nbsp;</span>`;
-            }
-            else if (char === " ") {
-                idiomText += `<span class="space"><br /></span>`;
-            }
-            else {
-                idiomText += char + "&nbsp;";
-            }
+            idiomElement.innerHTML = idiomText;
         }
-        idiomElement.innerHTML = idiomText;
+        else {
+            lives--;
+            livesElement.innerText = `Lives: ${lives}`;
+        }
     }
     else {
-        lives--;
-        livesElement.innerText = `Lives: ${lives}`;
+        alert("u already guessd that...");
     }
     if (lives === 0) {
         alert("you lose bitch");
         newPhrase();
     }
-    if (correctArray.length === currentIdiom.replace(" ", "").length) {
-        alert("slayyyyyyy!!!")
+    console.log(currentIdiom.replace(" ", "").length)
+    console.log(correctArray.length);
+    if (correctArray.length === currentIdiom.replace(/\W/g, "").length) {
+        alert("u winnn slayyyyyyy!!!")
         newPhrase();
     }
     inputElement.value = "";
