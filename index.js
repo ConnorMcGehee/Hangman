@@ -96,7 +96,7 @@ guessButton.addEventListener("click", (e) => {
         newPhrase();
     }
     if (correctArray.length === currentIdiom.replace(/\W/g, "").length) {
-        //alert("u winnn slayyyyyyy!!!")
+        alert(`u winnn slayyyyyyy!!! answer was: ${currentIdiom}`)
         newPhrase();
     }
     inputElement.value = "";
