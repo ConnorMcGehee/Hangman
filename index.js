@@ -87,7 +87,3 @@ guessButton.addEventListener("click", (e) => {
     inputElement.value = "";
     inputElement.focus();
 })
-
-inputElement.addEventListener("focus", (e) => {
-    window.scrollTo(0, 0);
-})
