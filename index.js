@@ -17,6 +17,7 @@ fetch("https://raw.githubusercontent.com/jbrew/idiomash/master/text/idioms.txt")
 let idiomList = [];
 let currentIdiom = "";
 let guessArray = [];
+let correctArray = [];
 
 const idioms = (responseText) => {
     let rawIdioms = responseText.trim().toUpperCase().split("\n");
@@ -33,6 +34,8 @@ const idioms = (responseText) => {
 const newPhrase = () => {
     currentIdiom = idiomList[Math.floor(Math.random() * idiomList.length)];
     lives = 6;
+    guessArray.length = 0;
+    correctArray.length = 0;
     livesElement.innerText = `Lives: ${lives}`;
     idiomElement.innerText = "";
     let idiomCharArray = currentIdiom.split("");
@@ -57,6 +60,7 @@ guessButton.addEventListener("click", (e) => {
     let guess = inputElement.value.toUpperCase();
     guessArray.push(guess);
     if (currentIdiom.includes(guess)) {
+        correctArray.push(guess);
         idiomElement.innerText = "";
         let idiomCharArray = currentIdiom.split("");
         let idiomText = "";
@@ -82,6 +86,10 @@ guessButton.addEventListener("click", (e) => {
     }
     if (lives === 0) {
         alert("you lose bitch");
+        newPhrase();
+    }
+    if (correctArray.length === currentIdiom.replace(" ", "").length) {
+        alert("slayyyyyyy!!!")
         newPhrase();
     }
     inputElement.value = "";
