@@ -95,10 +95,8 @@ guessButton.addEventListener("click", (e) => {
         alert(`you lose bitch. answer was: ${currentIdiom}`);
         newPhrase();
     }
-    console.log(currentIdiom.replace(" ", "").length)
-    console.log(correctArray.length);
     if (correctArray.length === currentIdiom.replace(/\W/g, "").length) {
-        alert("u winnn slayyyyyyy!!!")
+        //alert("u winnn slayyyyyyy!!!")
         newPhrase();
     }
     inputElement.value = "";
