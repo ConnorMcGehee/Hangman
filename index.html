@@ -16,11 +16,12 @@
 
 <body>
     <h1>Hangman</h1>
-    <label for="letter-input">Your Guess:</label>
-    <input type="text" name="letter-input" id="letter-input" maxlength="1" onkeydown="return /[a-z]/i.test(event.key)" placeholder="A"><br />
-    <button id="guess-button">Loading...</button>
-    <div id="lives">Lives: 6</div>
     <div id="idiom"></div>
+    <div id="lives">Lives: 6</div>
+    <label for="letter-input">Your Guess:</label>
+    <input type="text" name="letter-input" id="letter-input" maxlength="1" onkeydown="return /[a-z]/i.test(event.key)"
+        placeholder="A"><br />
+    <button id="guess-button">Loading...</button>
 </body>
 
 </html>
