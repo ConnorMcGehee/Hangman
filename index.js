@@ -92,7 +92,7 @@ guessButton.addEventListener("click", (e) => {
         alert("u already guessd that...");
     }
     if (lives === 0) {
-        alert("you lose bitch");
+        alert(`you lose bitch. answer was: ${currentIdiom}`);
         newPhrase();
     }
     console.log(currentIdiom.replace(" ", "").length)
