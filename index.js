@@ -86,19 +86,17 @@ const newPhrase = () => {
         }
     }
     idiomElement.innerHTML = idiomText;
-    console.log(currentIdiom);
     guessButton.innerText = "Guess";
 }
 
 const guessButtonClick = (e) => {
     let guess = guessInput.value.replace(/[^\w\s]|_/, "").toUpperCase().trim();
-    console.log(guess, currentIdiom);
+    guessInput.value = "";
     if (guess === currentIdiom.replace(/[^\w\s]|_/, "")) {
         win();
     }
     else {
-        lives--;
-        livesElement.innerText = `Lives: ${lives}`;
+        decreaseLives();
     }
     if (lives === 0) {
         lose();
@@ -135,13 +133,7 @@ const letterButtonClick = (e) => {
         idiomElement.innerHTML = idiomText;
     }
     else {
-        lives--;
-        livesElement.innerText = `Lives: ${lives}`;
-        var blink_speed = 800; // every 1000 == 1 second, adjust to suit
-        livesElement.style.background = "red";
-        setTimeout(function () {
-            livesElement.style.background = "rgb(5, 0, 81)";
-        }, blink_speed);
+        decreaseLives();
     }
     if (lives === 0) {
         lose();
@@ -154,6 +146,16 @@ const letterButtonClick = (e) => {
 resetButton.addEventListener("click", (e) => {
     newPhrase();
 });
+
+const decreaseLives = () => {
+    lives--;
+    livesElement.innerText = `Lives: ${lives}`;
+    var blink_speed = 800; // every 1000 == 1 second, adjust to suit
+    livesElement.style.background = "red";
+    setTimeout(function () {
+        livesElement.style.background = "rgb(5, 0, 81)";
+    }, blink_speed);
+}
 
 const win = () => {
     lettersElement.style.display = "none";

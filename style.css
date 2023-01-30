@@ -7,6 +7,7 @@ body {
 
 button {
     border: solid rgb(185, 185, 185) 0.1rem;
+    color: black;
     border-radius: 0.25rem;
     background-color: rgb(243, 243, 243);
     padding: 0.5rem;
