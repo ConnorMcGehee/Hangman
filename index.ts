@@ -1,24 +1,30 @@
-"use strict";
-const $ = (id) => {
+const $ = (id: string): HTMLElement | null => {
     return document.getElementById(id);
-};
+}
+
 let idiomElement = $("idiom") || document.createElement("div");
 let livesElement = $("lives") || document.createElement("div");
 let lettersElement = $("letters") || document.createElement("div");
 let resetButton = $("reset") || document.createElement("button");
-let guessInput;
-let guessButton;
+let guessInput: HTMLInputElement;
+let guessButton: HTMLButtonElement;
+
 let alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
     "v", "w", "x", "y", "z"];
+
 let lives = 6;
+
 let isLoaded = false;
+
 fetch("https://raw.githubusercontent.com/jbrew/idiomash/master/text/idioms.txt")
     .then((response) => response.text().then(idioms).then(newPhrase));
-let idiomList = [];
+
+let idiomList: string[] = [];
 let currentIdiom = "";
-let guessArray = [];
-let correctArray = [];
-const idioms = (responseText) => {
+let guessArray: string[] = [];
+let correctArray: string[] = [];
+
+const idioms = (responseText: string) => {
     let rawIdioms = responseText.trim().toUpperCase().split("\n");
     idiomList = rawIdioms.filter(idiom => {
         let safeIdiom = true;
@@ -26,9 +32,10 @@ const idioms = (responseText) => {
             safeIdiom = false;
         }
         return safeIdiom;
-    });
+    })
     isLoaded = true;
-};
+}
+
 const newPhrase = () => {
     alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
         "v", "w", "x", "y", "z"];
@@ -39,9 +46,9 @@ const newPhrase = () => {
     guessInput = document.createElement("input");
     guessInput.type = "text";
     guessInput.id = "guess";
-    guessInput.placeholder = "Guess the phrase";
+    guessInput.placeholder = "Guess the phrase"
     guessButton = document.createElement("button");
-    guessButton.innerText = "Guess";
+    guessButton.innerText = "Guess"
     guessButton.addEventListener("click", guessButtonClick);
     guessInput.addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
@@ -49,7 +56,7 @@ const newPhrase = () => {
             guessButton.click();
         }
     });
-    lettersElement.innerHTML += `<div id="guess-container">`;
+    lettersElement.innerHTML += `<div id="guess-container">`
     let containerElement = document.createElement("div");
     containerElement.id = "guess-container";
     lettersElement.appendChild(containerElement);
@@ -86,8 +93,9 @@ const newPhrase = () => {
     }
     idiomElement.innerHTML = idiomText;
     guessButton.innerText = "Guess";
-};
-const guessButtonClick = (e) => {
+}
+
+const guessButtonClick = (e: any) => {
     let guess = guessInput.value.replace(/[^\w\s]|_/, "").toUpperCase().trim();
     guessInput.value = "";
     if (guess === currentIdiom.replace(/[^\w\s]|_/, "")) {
@@ -99,8 +107,9 @@ const guessButtonClick = (e) => {
     if (lives === 0) {
         lose();
     }
-};
-const letterButtonClick = (e) => {
+}
+
+const letterButtonClick = (e: any) => {
     let guess = e.target.id.toUpperCase();
     e.target.disabled = "true";
     guessArray.push(guess);
@@ -138,10 +147,12 @@ const letterButtonClick = (e) => {
     if (correctArray.length === currentIdiom.replace(/\W/g, "").length) {
         win();
     }
-};
+}
+
 resetButton.addEventListener("click", (e) => {
     newPhrase();
 });
+
 const decreaseLives = () => {
     lives--;
     livesElement.innerText = `Lives: ${lives}`;
@@ -150,17 +161,18 @@ const decreaseLives = () => {
     setTimeout(function () {
         livesElement.style.background = "rgb(5, 0, 81)";
     }, blink_speed);
-};
+}
+
 const win = () => {
     lettersElement.style.display = "none";
     livesElement.style.display = "none";
     idiomElement.style.background = "yellow";
     idiomElement.innerHTML = `<span class="show" style="color:black;">You win!<br />The phrase was: "${currentIdiom}"</span>`;
-};
+}
 const lose = () => {
     lettersElement.style.display = "none";
     livesElement.style.display = "none";
     idiomElement.style.background = "lightgrey";
     idiomElement.style.color = "black";
     idiomElement.innerHTML = `<span class="show" style="color:black;">You lose!<br />The phrase was: "${currentIdiom}"</span>`;
-};
+}
