@@ -50,6 +50,12 @@ const newPhrase = () => {
     guessButton = document.createElement("button");
     guessButton.innerText = "Guess"
     guessButton.addEventListener("click", guessButtonClick);
+    guessInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            guessButton.click();
+        }
+    });
     lettersElement.innerHTML += `<div id="guess-container">`
     let containerElement = document.createElement("div");
     containerElement.id = "guess-container";
