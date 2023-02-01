@@ -90,14 +90,16 @@ const newPhrase = () => {
 const guessButtonClick = (e) => {
     let guess = guessInput.value.replace(/[^\w\s]|_/, "").toUpperCase().trim();
     guessInput.value = "";
-    if (guess === currentIdiom.replace(/[^\w\s]|_/, "")) {
-        win();
-    }
-    else {
-        decreaseLives();
-    }
-    if (lives === 0) {
-        lose();
+    if (guess !== "") {
+        if (guess === currentIdiom.replace(/[^\w\s]|_/, "")) {
+            win();
+        }
+        else {
+            decreaseLives();
+        }
+        if (lives === 0) {
+            lose();
+        }
     }
 };
 const letterButtonClick = (e) => {
